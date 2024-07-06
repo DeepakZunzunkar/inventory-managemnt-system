@@ -2,7 +2,6 @@ package com.dz.ims.controller;
 
 import com.dz.ims.dto.BaseResponse;
 import com.dz.ims.dto.StockProductDto;
-import com.dz.ims.entity.StockProduct;
 import com.dz.ims.service.StockProductService;
 import com.dz.ims.util.RequestPath;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class StockProductController {
     }
 
     @GetMapping(value = RequestPath.GETBYID)
-    public ResponseEntity<BaseResponse<?>> getSStockProductById(@PathVariable("id") Long productId){
+    public ResponseEntity<BaseResponse<?>> getStockProductById(@PathVariable("id") Long productId){
         BaseResponse<?> response = productService.getProductById(productId);
         return new ResponseEntity<>(response , HttpStatus.OK);
     }
