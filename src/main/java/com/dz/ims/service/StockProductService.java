@@ -9,10 +9,10 @@ import java.util.List;
 public interface StockProductService {
 
     public BaseResponse<StockProductDto> addProduct(StockProductDto product);
-    public  Long updateProduct(StockProduct product);
-    public  Long deleteProduct(StockProduct product);
-    public  StockProduct getProductById(StockProduct product);
+    public  BaseResponse<StockProductDto> updateProduct(StockProductDto product);
+    public  BaseResponse<?> deleteProduct(StockProductDto product);
+    public  BaseResponse<StockProductDto> getProductById(Long productId);
 
-    public List<StockProduct> getAllProduct(StockProduct product);
+    public BaseResponse<List<StockProductDto>> getAllProduct();
 
 }
