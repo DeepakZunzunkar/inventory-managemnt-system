@@ -1,6 +1,5 @@
 package com.dz.ims.entity;
 
-import com.dz.ims.dto.SupplierMasterDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,31 +10,18 @@ import javax.persistence.*;
 @Builder
 @EqualsAndHashCode(callSuper = false)
 @Entity
-@Table(name = "purchase_master")
-public class StockPurchase {
-
-//    at a time only one product can be purchased
+@Table(name = "stock_master")
+public class StockMaster {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    /* one-to-one relationship between StockProduct and StockPurchase
-     where each product can only be associated with one purchase, and vice versa
-     but here only one directional relationship .*/
 
     @OneToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id", unique = true)
     private StockProduct stockProduct;
 
     private Integer quantity;
-
-    @OneToOne
-    @JoinColumn(name = "supplier_id", referencedColumnName = "id", unique = true)
-    private SupplierMaster supplier;
-
-    private Double totalAmount;
-    private String invoiceNumber;
 
     @Embedded
     @AttributeOverrides({
