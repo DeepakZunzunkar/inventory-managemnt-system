@@ -49,7 +49,7 @@ public class StockPurchaseServiceImpl implements StockPurchaseService {
                             .stockProduct(optionalStockProduct.get())
                             .quantity(dto.getQuantity())
                             .build();
-                    BaseResponse<StockMaster> response = stockMasterService.addUpdateStock(stockMaster);
+                    BaseResponse<StockMaster> response = stockMasterService.addUpdateStock(stockMaster,"PURCHASE");
                     return BaseResponse.<StockPurchaseDto>builder()
                             .responseCode(ResponseCode.SUCCESS.value())
                             .responseMessage("added successfully..")

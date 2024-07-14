@@ -20,25 +20,37 @@ public class StockMasterServiceImpl implements StockMasterService {
     StockMasterRepository stockMasterRepository;
 
     @Override
-    public BaseResponse<StockMaster> addUpdateStock(StockMaster stockMaster) {
+    public BaseResponse<StockMaster> addUpdateStock(StockMaster stockMaster,String flag) {
         try {
-           StockMaster master = stockMasterRepository.findStockProductById(stockMaster.getStockProduct().getId());
+//           StockMaster master = stockMasterRepository.findStockProductById(stockMaster.getStockProduct().getId());
+            StockMaster master = stockMasterRepository.findByStockProductId(stockMaster.getStockProduct().getId());
             if(master!=null){
                     master.getBaseProperties().setUpdatedBy("SYSTEM");
                     master.getBaseProperties().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-                    Integer totalQuantity= master.getQuantity() + stockMaster.getQuantity();
+                    Integer totalQuantity = master.getQuantity();
+                if(flag.equalsIgnoreCase("PURCHASE")){
+                        totalQuantity = master.getQuantity() + stockMaster.getQuantity();
+                    }else if(flag.equalsIgnoreCase("SALE")){
+                        totalQuantity= master.getQuantity() - stockMaster.getQuantity();
+                    }
                     master.setQuantity(totalQuantity);
                     stockMasterRepository.save(master);
+                return BaseResponse.<StockMaster>builder()
+                        .responseCode(ResponseCode.SUCCESS.value())
+                        .responseMessage("updated successfully..")
+                        .build();
+            }else if(flag.equalsIgnoreCase("PURCHASE")) {
+                // first time add
+                stockMaster.setBaseProperties(new BaseProperties("SYSTEM",new Timestamp(System.currentTimeMillis()),null,null));
+                stockMasterRepository.save(stockMaster);
                 return BaseResponse.<StockMaster>builder()
                         .responseCode(ResponseCode.SUCCESS.value())
                         .responseMessage("added successfully..")
                         .build();
             }else{
-                stockMaster.setBaseProperties(new BaseProperties("SYSTEM",new Timestamp(System.currentTimeMillis()),null,null));
-                stockMasterRepository.save(stockMaster);
                 return BaseResponse.<StockMaster>builder()
                         .responseCode(ResponseCode.SUCCESS.value())
-                        .responseMessage("updated successfully..")
+                        .responseMessage("nothing added or updated ")
                         .build();
             }
         } catch (Exception e) {

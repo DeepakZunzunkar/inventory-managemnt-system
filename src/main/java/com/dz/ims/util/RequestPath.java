@@ -13,4 +13,6 @@ public interface RequestPath {
 
     public static final String PURCHASE ="/purchase";
 
+    public static final String SALE ="/sale";
+
 }

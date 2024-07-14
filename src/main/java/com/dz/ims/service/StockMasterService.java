@@ -5,5 +5,5 @@ import com.dz.ims.entity.StockMaster;
 
 public interface StockMasterService {
 
-    BaseResponse<StockMaster> addUpdateStock(StockMaster stockMaster);
+    BaseResponse<StockMaster> addUpdateStock(StockMaster stockMaster, String purchase);
 }
