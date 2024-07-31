@@ -29,6 +29,8 @@ public class SupplierMasterServiceImpl implements SupplierMasterService {
         try{
             ModelMapper modelMapper=new ModelMapper();
             SupplierMaster entity = modelMapper.map(dto, SupplierMaster.class);
+//            entity.setCode();
+            entity.setIsActive(true);
             entity.setBaseProperties(new BaseProperties("SYSTEM",new Timestamp(System.currentTimeMillis()),null,null));
             entity = masterRepository.save(entity);
             dto.setId(entity.getId());

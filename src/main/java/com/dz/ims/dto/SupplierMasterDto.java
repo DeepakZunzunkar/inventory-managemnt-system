@@ -14,6 +14,8 @@ public class SupplierMasterDto {
     private Long id;
     private String name;
     private String address;
+    private String mobileNumber;
+    private String email;
     private String code;
     private Boolean isActive;
     private BasePropertiesDto baseProperties;
