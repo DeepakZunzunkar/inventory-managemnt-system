@@ -1,7 +1,6 @@
 package com.dz.ims.controller;
 
 import com.dz.ims.dto.BaseResponse;
-import com.dz.ims.dto.StockProductDto;
 import com.dz.ims.dto.StockPurchaseDto;
 import com.dz.ims.service.StockPurchaseService;
 import com.dz.ims.util.RequestPath;

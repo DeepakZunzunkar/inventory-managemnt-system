@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StockMasterDto {
+public class RoleMasterDto {
 
-    private Long id;
-    private ProductMasterDto product;
-    private Integer quantity;
-    private BasePropertiesDto baseProperties;
+        private Long id;
+        private String roleName;
+        private Boolean isActive;
+        private BasePropertiesDto baseProperties;
+
+
 }

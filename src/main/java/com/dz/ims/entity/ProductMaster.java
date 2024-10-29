@@ -11,7 +11,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "product_master")
-public class StockProduct {
+public class ProductMaster {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

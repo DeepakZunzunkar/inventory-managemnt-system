@@ -4,7 +4,7 @@ import com.dz.ims.dto.BaseResponse;
 import com.dz.ims.dto.StockPurchaseDto;
 import com.dz.ims.dto.SupplierMasterDto;
 import com.dz.ims.entity.*;
-import com.dz.ims.repository.StockProductRepository;
+import com.dz.ims.repository.ProductMasterRepository;
 import com.dz.ims.repository.StockPurchaseRepository;
 import com.dz.ims.repository.SupplierMasterRepository;
 import com.dz.ims.service.StockMasterService;
@@ -24,7 +24,7 @@ public class StockPurchaseServiceImpl implements StockPurchaseService {
     StockPurchaseRepository purchaseRepository;
 
     @Autowired
-    StockProductRepository productRepository;
+    ProductMasterRepository productRepository;
 
     @Autowired
     SupplierMasterRepository supplierMasterRepository;
@@ -35,7 +35,7 @@ public class StockPurchaseServiceImpl implements StockPurchaseService {
     @Override
     public BaseResponse<?> add(StockPurchaseDto dto) {
         try{
-            Optional<StockProduct> optionalStockProduct = productRepository.findById(dto.getProduct().getId());
+            Optional<ProductMaster> optionalStockProduct = productRepository.findById(dto.getProduct().getId());
             if(optionalStockProduct.isPresent()){
                 Optional<SupplierMaster> optionalSupplierMaster = supplierMasterRepository.findById(dto.getSupplier().getId());
                 if(optionalSupplierMaster.isPresent()){
@@ -46,7 +46,7 @@ public class StockPurchaseServiceImpl implements StockPurchaseService {
                     dto.setId(entity.getId());
                     // if present in stock increase stock size
                     StockMaster stockMaster = StockMaster.builder()
-                            .stockProduct(optionalStockProduct.get())
+                            .productMaster(optionalStockProduct.get())
                             .quantity(dto.getQuantity())
                             .build();
                     BaseResponse<StockMaster> response = stockMasterService.addUpdateStock(stockMaster,"PURCHASE");

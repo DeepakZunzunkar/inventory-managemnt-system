@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class StockPurchaseDto {
 
     private Long id;
-    private StockProductDto product;
+    private ProductMasterDto product;
     private Integer quantity;
     private SupplierMasterDto supplier;
     private Double totalAmount;

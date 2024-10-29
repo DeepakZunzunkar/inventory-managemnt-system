@@ -1,11 +1,8 @@
 package com.dz.ims.dto;
 
-import com.dz.ims.entity.BaseProperties;
 import com.dz.ims.entity.SaleMaster;
-import com.dz.ims.entity.StockProduct;
+import com.dz.ims.entity.ProductMaster;
 import lombok.*;
-
-import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +12,7 @@ public class SaleProductMappingDto {
 
     private Long mapId;
     private SaleMaster saleMaster;
-    private StockProduct product;
+    private ProductMaster product;
     private Integer quantity;
     private Double totalAmount;
 //    private BaseProperties baseProperties;

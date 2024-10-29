@@ -3,7 +3,6 @@ package com.dz.ims.service.impl;
 import com.dz.ims.dto.*;
 import com.dz.ims.entity.*;
 import com.dz.ims.repository.SalesMasterRepository;
-import com.dz.ims.repository.StockProductRepository;
 import com.dz.ims.service.SaleMasterService;
 import com.dz.ims.service.StockMasterService;
 import com.dz.ims.util.ResponseCode;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SaleMasterServiceImpl implements SaleMasterService {
@@ -60,7 +58,7 @@ public class SaleMasterServiceImpl implements SaleMasterService {
                 // if present in stock decrease stock size
                 entity.getSaleProductMapping().forEach(saleItem ->{
                     StockMaster stockMaster = StockMaster.builder()
-                            .stockProduct(saleItem.getStockProduct())
+                            .productMaster(saleItem.getProductMaster())
                             .quantity(saleItem.getQuantity())
                             .build();
                     BaseResponse<StockMaster> response = stockMasterService.addUpdateStock(stockMaster,"SALE");

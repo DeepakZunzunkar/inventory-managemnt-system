@@ -1,11 +1,11 @@
 package com.dz.ims.service.impl;
 
 import com.dz.ims.dto.BaseResponse;
-import com.dz.ims.dto.StockProductDto;
+import com.dz.ims.dto.ProductMasterDto;
 import com.dz.ims.entity.BaseProperties;
-import com.dz.ims.entity.StockProduct;
-import com.dz.ims.repository.StockProductRepository;
-import com.dz.ims.service.StockProductService;
+import com.dz.ims.entity.ProductMaster;
+import com.dz.ims.repository.ProductMasterRepository;
+import com.dz.ims.service.ProductMasterService;
 import com.dz.ims.util.ResponseCode;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,28 +17,28 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StockProductServiceImpl implements StockProductService {
+public class ProductMasterServiceImpl implements ProductMasterService {
 
     @Autowired
-    StockProductRepository productRepository;
+    ProductMasterRepository productRepository;
 
 
     @Override
-    public BaseResponse<StockProductDto> addProduct(StockProductDto productDto) {
+    public BaseResponse<ProductMasterDto> addProduct(ProductMasterDto productDto) {
         try{
             ModelMapper modelMapper=new ModelMapper();
-            StockProduct productEntity = modelMapper.map(productDto,StockProduct.class);
+            ProductMaster productEntity = modelMapper.map(productDto, ProductMaster.class);
             productEntity.setBaseProperties(new BaseProperties("SYSTEM",new Timestamp(System.currentTimeMillis()),null,null));
             productEntity = productRepository.save(productEntity);
             productDto.setId(productEntity.getId());
-            return BaseResponse.<StockProductDto>builder()
+            return BaseResponse.<ProductMasterDto>builder()
                     .responseCode(ResponseCode.SUCCESS.value())
                     .responseMessage("product added successfully..")
                     .responseData(productDto)
                     .build();
 
         }catch (Exception e){
-            return BaseResponse.<StockProductDto>builder()
+            return BaseResponse.<ProductMasterDto>builder()
                     .responseCode(ResponseCode.PROCCESSING_FAIL.value())
                     .responseMessage("oops something went wrong..")
                     .build();
@@ -46,11 +46,11 @@ public class StockProductServiceImpl implements StockProductService {
     }
 
     @Override
-    public BaseResponse<StockProductDto> updateProduct(StockProductDto product) {
+    public BaseResponse<ProductMasterDto> updateProduct(ProductMasterDto product) {
         try {
-            Optional<StockProduct> optionalStockProduct = productRepository.findById(product.getId());
+            Optional<ProductMaster> optionalStockProduct = productRepository.findById(product.getId());
             if(optionalStockProduct.isPresent()){
-                StockProduct productEntity = optionalStockProduct.get();
+                ProductMaster productEntity = optionalStockProduct.get();
                 productEntity.setName(product.getName());
                 productEntity.setCategory(product.getCategory());
                 productEntity.setPrice(product.getPrice());
@@ -60,19 +60,19 @@ public class StockProductServiceImpl implements StockProductService {
                 productEntity.getBaseProperties().setUpdatedBy("SYSTEM");
                 productEntity.getBaseProperties().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
                 productRepository.save(productEntity);
-                return BaseResponse.<StockProductDto>builder()
+                return BaseResponse.<ProductMasterDto>builder()
                         .responseCode(ResponseCode.SUCCESS.value())
                         .responseMessage("product updated successfully..")
                     .responseData(product)
                         .build();
             }else {
-                return BaseResponse.<StockProductDto>builder()
+                return BaseResponse.<ProductMasterDto>builder()
                         .responseCode(ResponseCode.NO_CONTENT.value())
                         .responseMessage("product not found.")
                         .build();
             }
         }catch (Exception e){
-            return BaseResponse.<StockProductDto>builder()
+            return BaseResponse.<ProductMasterDto>builder()
                     .responseCode(ResponseCode.PROCCESSING_FAIL.value())
                     .responseMessage("oops something went wrong..")
                     .build();
@@ -80,11 +80,11 @@ public class StockProductServiceImpl implements StockProductService {
     }
 
     @Override
-    public BaseResponse<?> deleteProduct(StockProductDto product) {
+    public BaseResponse<?> deleteProduct(ProductMasterDto product) {
         try{
-            Optional<StockProduct> optionalStockProduct = productRepository.findById(product.getId());
+            Optional<ProductMaster> optionalStockProduct = productRepository.findById(product.getId());
             if(optionalStockProduct.isPresent()) {
-                StockProduct productEntity = optionalStockProduct.get();
+                ProductMaster productEntity = optionalStockProduct.get();
                 // hard delete
                 productRepository.delete(productEntity);
                 return BaseResponse.<String>builder()
@@ -106,26 +106,26 @@ public class StockProductServiceImpl implements StockProductService {
     }
 
     @Override
-    public BaseResponse<StockProductDto> getProductById(Long productId) {
+    public BaseResponse<ProductMasterDto> getProductById(Long productId) {
        try{
-           Optional<StockProduct> optionalStockProduct = productRepository.findById(productId);
+           Optional<ProductMaster> optionalStockProduct = productRepository.findById(productId);
            if(optionalStockProduct.isPresent()){
-               StockProduct productEntity = optionalStockProduct.get();
+               ProductMaster productEntity = optionalStockProduct.get();
                ModelMapper modelMapper=new ModelMapper();
-               StockProductDto productDto = modelMapper.map(productEntity,StockProductDto.class);
-               return BaseResponse.<StockProductDto>builder()
+               ProductMasterDto productDto = modelMapper.map(productEntity, ProductMasterDto.class);
+               return BaseResponse.<ProductMasterDto>builder()
                        .responseCode(ResponseCode.SUCCESS.value())
                        .responseMessage("success")
                        .responseData(productDto)
                        .build();
            }else{
-               return BaseResponse.<StockProductDto>builder()
+               return BaseResponse.<ProductMasterDto>builder()
                        .responseCode(ResponseCode.NO_CONTENT.value())
                        .responseMessage("product not found.")
                        .build();
            }
        }catch (Exception e){
-           return BaseResponse.<StockProductDto>builder()
+           return BaseResponse.<ProductMasterDto>builder()
                    .responseCode(ResponseCode.PROCCESSING_FAIL.value())
                    .responseMessage("oops something went wrong..")
                    .build();
@@ -133,29 +133,29 @@ public class StockProductServiceImpl implements StockProductService {
     }
 
     @Override
-    public BaseResponse<List<StockProductDto>> getAllProduct() {
-        ArrayList<StockProductDto> list = new ArrayList<>();
+    public BaseResponse<List<ProductMasterDto>> getAllProduct() {
+        ArrayList<ProductMasterDto> list = new ArrayList<>();
         try{
-            List<StockProduct> productList = productRepository.findAll();
+            List<ProductMaster> productList = productRepository.findAll();
             if(!productList.isEmpty()){
                 ModelMapper modelMapper=new ModelMapper();
                 productList.forEach(product->{
-                    list.add(modelMapper.map(product,StockProductDto.class));
+                    list.add(modelMapper.map(product, ProductMasterDto.class));
                 });
-                return BaseResponse.<List<StockProductDto>>builder()
+                return BaseResponse.<List<ProductMasterDto>>builder()
                         .responseCode(ResponseCode.SUCCESS.value())
                         .responseMessage("success")
                         .responseData(list)
                         .build();
             }else{
-                return BaseResponse.<List<StockProductDto>>builder()
+                return BaseResponse.<List<ProductMasterDto>>builder()
                         .responseCode(ResponseCode.NO_CONTENT.value())
                         .responseMessage("products not found.")
                         .responseData(list)
                         .build();
             }
         }catch (Exception e){
-            return BaseResponse.<List<StockProductDto>>builder()
+            return BaseResponse.<List<ProductMasterDto>>builder()
                     .responseCode(ResponseCode.PROCCESSING_FAIL.value())
                     .responseMessage("oops something went wrong..")
                     .build();

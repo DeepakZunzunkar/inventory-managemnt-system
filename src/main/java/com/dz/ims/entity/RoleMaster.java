@@ -1,6 +1,10 @@
 package com.dz.ims.entity;
 
-import lombok.*;
+import com.dz.ims.dto.BasePropertiesDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -8,24 +12,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(callSuper = false)
 @Entity
-@Table(name = "stock_master")
-public class StockMaster {
+@Table(name = "role_master")
+public class RoleMaster {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String roleName;
+    private Boolean isActive;
 
-    @OneToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id", unique = true)
-    private ProductMaster productMaster;
-
-    private Integer quantity;
 
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name="createdAt",column=@Column(name="created_at",updatable= false))
     })
     private BaseProperties baseProperties;
+
 }

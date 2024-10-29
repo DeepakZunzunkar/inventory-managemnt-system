@@ -15,4 +15,7 @@ public interface RequestPath {
 
     public static final String SALE ="/sale";
 
+    public static final String GETALL = "getAll";
+
+    public static final String ROLE ="/role";
 }

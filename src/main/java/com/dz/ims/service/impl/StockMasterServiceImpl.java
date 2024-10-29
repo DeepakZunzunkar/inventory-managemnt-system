@@ -1,8 +1,6 @@
 package com.dz.ims.service.impl;
 
 import com.dz.ims.dto.BaseResponse;
-import com.dz.ims.dto.StockMasterDto;
-import com.dz.ims.dto.StockProductDto;
 import com.dz.ims.entity.BaseProperties;
 import com.dz.ims.entity.StockMaster;
 import com.dz.ims.repository.StockMasterRepository;
@@ -23,12 +21,12 @@ public class StockMasterServiceImpl implements StockMasterService {
     public BaseResponse<StockMaster> addUpdateStock(StockMaster stockMaster,String flag) {
         try {
 //           StockMaster master = stockMasterRepository.findStockProductById(stockMaster.getStockProduct().getId());
-            StockMaster master = stockMasterRepository.findByStockProductId(stockMaster.getStockProduct().getId());
+            StockMaster master = stockMasterRepository.findProductMastertById(stockMaster.getProductMaster().getId());
             if(master!=null){
                     master.getBaseProperties().setUpdatedBy("SYSTEM");
                     master.getBaseProperties().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
                     Integer totalQuantity = master.getQuantity();
-                if(flag.equalsIgnoreCase("PURCHASE")){
+                    if(flag.equalsIgnoreCase("PURCHASE")){
                         totalQuantity = master.getQuantity() + stockMaster.getQuantity();
                     }else if(flag.equalsIgnoreCase("SALE")){
                         totalQuantity= master.getQuantity() - stockMaster.getQuantity();

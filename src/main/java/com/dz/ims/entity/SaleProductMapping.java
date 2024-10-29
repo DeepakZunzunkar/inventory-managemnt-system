@@ -23,7 +23,7 @@ public class SaleProductMapping {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private StockProduct stockProduct;
+    private ProductMaster productMaster;
 
     private Integer quantity;
     private Double totalAmount;

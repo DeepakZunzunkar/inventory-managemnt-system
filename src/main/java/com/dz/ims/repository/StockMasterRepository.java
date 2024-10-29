@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StockMasterRepository extends JpaRepository<StockMaster,Long> {
-    StockMaster findStockProductById(Long id);
+//    StockMaster findStockProductById(Long id);
 
-    StockMaster findByStockProductId(Long id);
+//    StockMaster findByProductMastertId(Long id);
+
+    StockMaster findProductMastertById(Long id);
 }

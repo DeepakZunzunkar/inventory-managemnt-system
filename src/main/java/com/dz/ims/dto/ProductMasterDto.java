@@ -1,6 +1,5 @@
 package com.dz.ims.dto;
 
-import com.dz.ims.entity.BaseProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StockProductDto {
+public class ProductMasterDto {
 
     private Long id;
     private String name;
